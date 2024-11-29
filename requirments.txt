@@ -8,4 +8,5 @@ pandas
 python-dotenv
 pydantic
 fastapi[standard]
-uvicorn
+underthesea
+motor

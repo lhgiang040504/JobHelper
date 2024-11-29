@@ -1,8 +1,22 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from PyPDF2 import PdfReader
 import os
+from utils.preprocessed_text import read_pdf
+from dotenv import dotenv_values
+from source.database.db_connection import MongoDB
+
+config = dotenv_values(".env")
 
 app = FastAPI()
+
+@app.on_event("startup")
+def startup_db_client():
+    app.mongodb = MongoDB(uri=config['MONGODB_URI'], db_name=config['MONGODB_DB'])
+    print("Connected to the MongoDB database!")
+
+@app.on_event("shutdown")
+def shutdown_db_client():
+    app.mongodb.close()
+    print("Disconnected to the MongoDB database!")
 
 @app.post('/upload-CVs/')
 async def upload_pdf(file: UploadFile = File(...)):
@@ -16,11 +30,8 @@ async def upload_pdf(file: UploadFile = File(...)):
 
      # Đọc nội dung file CVs
      try:
-         reader = PdfReader(file_location)
-         CVs_content = ''
-         for page in reader.pages:
-             CVs_content += page.extract_text()
+        CVs_content = read_pdf(file_location)
      except Exception as e:
-           raise HTTPException(status_code=500, detail='Cannot read file content')
+        raise HTTPException(status_code=500, detail='Cannot read file content')
           
      return {'file_name': file.filename, 'content': CVs_content}
