@@ -1,6 +1,6 @@
 import uuid
 
-class CVsInfoExtraction:
+class JobInfoExtraction:
     def __init__(self, llm, prompt, parser):
         # Kiểm tra các đối tượng đầu vào
         if not callable(llm):
@@ -25,8 +25,8 @@ class CVsInfoExtraction:
         if not hasattr(self.chain, "invoke"):
             raise ValueError("chain object must have an 'invoke' method")
         try:
-            info = self.chain.invoke(input={"query": text})
-
+            # Trích xuất thông tin từ text
+            info = self.chain.invoke(input={"data": text})
             # Kiểm tra và tạo 'id' nếu thiếu hoặc rỗng
             if "_id" not in info or not info["_id"]:
                 info["_id"] = str(uuid.uuid4())  # Tạo 'id' ngẫu nhiên
@@ -34,3 +34,5 @@ class CVsInfoExtraction:
             return info
         except Exception as e:
             raise ValueError(f"Error during information extraction: {e}")
+
+        

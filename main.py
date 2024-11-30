@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from dotenv import dotenv_values
-from source.database.db_connection import MongoDB
-from routes import matching_route
+from source.configs.db_connection import MongoDB
+from source.routes.CandidateManagement import router as candidate_route
+from source.routes.JobManagement import router as job_route
 
 config = dotenv_values(".env")
 
@@ -18,4 +19,5 @@ async def shutdown_db_client():
     await app.mongodb.close()  # Close the MongoDB connection
     print("Disconnected from MongoDB database!")
 
-app.include_router(matching_route.router, prefix="/matching", tags=["matching"])
+app.include_router(candidate_route, prefix="/candidates", tags=["candidates"])
+app.include_router(job_route, prefix="/jobs", tags=["jobs"])
