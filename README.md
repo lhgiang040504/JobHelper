@@ -1,6 +1,7 @@
-# CV Information Extraction
+# Job Resume Matching Project
 
-This project extracts structured information from CVs using FastAPI and LangChain.
+- This project extracts structured information from CVs and JDs using FastAPI and LangChain.
+- Use the extracted information to determine the number of CVs that match the job descriptions.
 
 ## Prerequisites
 
