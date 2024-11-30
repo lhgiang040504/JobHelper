@@ -10,25 +10,35 @@ This project extracts structured information from CVs using FastAPI and LangChai
 ## Setup
 
 1. **Clone the repository**:
-    `git clone <repository-url>`
-    `cd <repository-directory>`
+    ```
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
 
 2. **Create and activate a virtual environment**:
-    `python -m venv venv`
-    `source venv/bin/activate`
+    ```
+    python -m venv venv
+    source venv/bin/activate
+    ```
 
 3. **Install dependencies**:
-    ```pip install -r requirements.txt```
+    ```
+    pip install -r requirements.txt
+    ```
 
 4. **Set up environment variables**:
     - Copy `.env.example` to `.env`:
-    `cp .env.example .env`
+    ```
+    cp .env.example .env
+    ```
     - Edit `.env` to include your `LLAMA_3_API_KEY`, `MONGODB_URI`, and `MONGODB_DB`.
 
 ## Running the Application
 
 1. **Start the FastAPI server**:
-    `uvicorn main:app --reload`
+    ```
+    uvicorn main:app --reload
+    ```
 
 2. **Access the API documentation**:
     - Open your browser and go to `http://127.0.0.1:8000/docs` to see the interactive API documentation.
