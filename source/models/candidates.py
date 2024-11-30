@@ -1,13 +1,12 @@
-from pydantic import BaseModel, Field, EmailStr, field_validator
+from pydantic import BaseModel, Field, EmailStr
 from typing import List, Optional
-from datetime import date
 import uuid
 
 # Contact model with email validation
 class Contact(BaseModel):
     name: str
     phone_number: str
-    email: Optional[str] = Field(None, description="Email address")
+    email: Optional[EmailStr] = Field(None, description="Email address")
     linkedin: str
     location: str = Field(
         default_factory=str,
@@ -35,7 +34,7 @@ class Candidate(BaseModel):
                 "contact": {
                     "name": "Nguyen Van A",
                     "phone_number": "0123456789",
-                    "email": "exampl1@gmail.com",
+                    "email": "exampl1@gmail.com",  # Email will be validated
                     "linkedin": "https://www.linkedin.com/in/nguyenvana",
                     "location": "Thu Duc, Ho Chi Minh"
                 },
@@ -50,4 +49,3 @@ class Candidate(BaseModel):
                     "major": ["Computer Science"]
             }
         }
-

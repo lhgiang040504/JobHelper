@@ -1,6 +1,5 @@
-from pydantic import BaseModel, Field, EmailStr, field_validator
-from typing import List, Optional
-from datetime import date
+from pydantic import BaseModel, Field
+from typing import List
 import uuid
 
 class JobDescription(BaseModel):
