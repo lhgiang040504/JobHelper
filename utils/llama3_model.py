@@ -3,8 +3,8 @@ import dotenv
 import os
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
-from source.models.candidates import Candidate
-from source.models.jobs import JobDescription
+from source.models.candidate import Candidate
+from source.models.job import JobDescription
 
 dotenv.load_dotenv()
 

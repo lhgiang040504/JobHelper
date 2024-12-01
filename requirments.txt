@@ -10,3 +10,5 @@ pydantic
 fastapi[standard]
 underthesea
 motor
+transformers
+torch

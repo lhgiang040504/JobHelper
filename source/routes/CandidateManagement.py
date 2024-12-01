@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, UploadFile, File, Request, Body
 from source.controller.CandidateManagement import postExtractCVInfo, createCandidate, getAllCandidates, deleteCandate
-from source.models.candidates import Candidate
+from source.models.candidate import Candidate
 # Định nghĩa router
 router = APIRouter()
 

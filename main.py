@@ -3,6 +3,7 @@ from dotenv import dotenv_values
 from source.configs.db_connection import MongoDB
 from source.routes.CandidateManagement import router as candidate_route
 from source.routes.JobManagement import router as job_route
+from source.routes.JobResumeMatching import router as job_resume_matching_route
 
 config = dotenv_values(".env")
 
@@ -21,3 +22,4 @@ async def shutdown_db_client():
 
 app.include_router(candidate_route, prefix="/candidates", tags=["candidates"])
 app.include_router(job_route, prefix="/jobs", tags=["jobs"])
+app.include_router(job_resume_matching_route, prefix="/jobresumematching", tags=["jobresumematching"])

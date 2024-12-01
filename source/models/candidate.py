@@ -4,10 +4,10 @@ import uuid
 
 # Contact model with email validation
 class Contact(BaseModel):
-    name: str
-    phone_number: str
+    name: str = Field(None, description="The full name of the candidate")
+    phone_number: str = Field(None, description="The phone number of the candidate")
     email: Optional[EmailStr] = Field(None, description="Email address")
-    linkedin: str
+    linkedin: str = Field(None, description="The LinkedIn profile of the candidate")
     location: str = Field(
         default_factory=str,
         description="Complete street address wherever possible."
@@ -21,7 +21,7 @@ class Role(BaseModel):
 class Candidate(BaseModel):
     id: str = Field(default_factory=uuid.uuid4, alias="_id")     
     contact: Contact
-    role: List[Role] = Field(description="The position the candidate is applying for")
+    role: Role = Field(description="The position the candidate is applying for")
     language: List[str] = Field(description="The spoken/written language")
     skills: List[str] = Field(description="Extract the technical tools in the following text. Technical tools are generally in 2-3 words")
     major: List[str] = Field(description="The major of the candidate")   
@@ -38,12 +38,10 @@ class Candidate(BaseModel):
                     "linkedin": "https://www.linkedin.com/in/nguyenvana",
                     "location": "Thu Duc, Ho Chi Minh"
                 },
-                    "role": [
-                         {
+                    "role":{
                          "name": "Software Engineer",
                          "num_experience": 3.5
-                         }
-                    ],
+                },
                     "language": ["English", "Vietnamese"],
                     "skills": ["Python", "Java", "C++"],
                     "major": ["Computer Science"]

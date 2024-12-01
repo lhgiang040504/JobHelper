@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Request, Body
 from source.controller.JobManagement import postExtractJobInfo, createJob, getAllJobs, deleteJob
-from source.models.jobs import JobDescription
+from source.models.job import JobDescription
 # Định nghĩa router
 router = APIRouter()
 
