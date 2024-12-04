@@ -22,9 +22,16 @@ def get_CVs_parser():
 
     cv_prompt = PromptTemplate(
         template="""
-        Extract the following structured information from the provided CV text. If information is missing, leave it blank. 
-        **Important:** Do not modify the `id` field; it should remain as it is (it can be either provided or left blank for MongoDB to auto-generate).
-        \n{format_instructions}\n{data}\n
+            #Intruduction#
+            You are a good CV filter. You are provided with a CV text.\n
+            {data}
+            #Context#
+            Currently, I am working on a project that requires extracting structured information from CVs. I need to extract the following structured information from the provided CV text. If information is missing, leave it blank.
+            #Task#
+            Extract the following structured information from the provided CV text. If information is missing, leave it blank. 
+            #Requirment# 
+            1. If information is missing, leave it blank. 
+            #Format_instructions# : {format_instructions}
         """,
         input_variables=["data"],
         partial_variables={"format_instructions": cv_parser.get_format_instructions()},
@@ -43,9 +50,17 @@ def get_Jobs_parser():
 
     job_prompt = PromptTemplate(
         template="""        
-            Extract the following structured information from the provided CV text. If information is missing, leave it blank.
-            **Important:** Do not modify the `id` field; it should remain as it is (it can be either provided or left blank for MongoDB to auto-generate).
-            \n{format_instructions}\n{data}\n
+        #Intruduction#
+        You are a good Job Decription filter. You are provided with a Job Decription text: \n
+        {data}
+        #Context#
+        Currently, I am working on a project that requires extracting structured information from JDs. I need to extract the following structured information from the provided JDs text. If information is missing, leave it blank.
+        #Task#
+        Extract the following structured information from the provided CV text.
+        #Requirment# 
+        1. If information is missing, leave it blank. 
+        #Format Instructions#\n
+        {format_instructions}
          """,
      input_variables=["data"],
      partial_variables={"format_instructions": job_parser.get_format_instructions()},

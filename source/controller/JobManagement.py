@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from fastapi import Request, Body
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -9,11 +10,14 @@ import logging
 # Logger để ghi lỗi
 logger = logging.getLogger(__name__)
 
-async def postExtractJobInfo(request: Request):
+class InputJD(BaseModel):
+    text: str
+
+async def postExtractJobInfo(request: Request, input: InputJD = Body(...)):
     # Lấy nội dung text từ request
     try:
-        body = await request.json()
-        Jobs_content = body.get("text", "").strip()
+        input = jsonable_encoder(input)
+        Jobs_content = input.get("text", "").strip()
 
         # Kiểm tra nếu không có text
         if not Jobs_content:

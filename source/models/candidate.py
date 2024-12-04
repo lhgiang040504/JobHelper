@@ -24,7 +24,8 @@ class Candidate(BaseModel):
     role: Role = Field(description="The position the candidate is applying for")
     language: List[str] = Field(description="The spoken/written language")
     skills: List[str] = Field(description="Extract the technical tools in the following text. Technical tools are generally in 2-3 words")
-    major: List[str] = Field(description="The major of the candidate")   
+    major: List[str] = Field(description="The major of the candidate")
+    degree: Optional[str] = Field(description="The degree of the candidate")   
 
     class Config:
         populate_by_name = True
@@ -44,6 +45,8 @@ class Candidate(BaseModel):
                 },
                     "language": ["English", "Vietnamese"],
                     "skills": ["Python", "Java", "C++"],
-                    "major": ["Computer Science"]
+                    "major": ["Computer Science"],
+                    "degree": "Bachelor"
+
             }
         }

@@ -78,6 +78,23 @@ async def postExtractCVInfo(request: Request, file: UploadFile = File(...)):
                 "message": "Failed to extract CV information"
             }
         )
+    try:
+        # Lưu vào database
+        database = request.app.mongodb.get_database()
+        collection = database["candidates"]
+
+        new_candidate = await collection.insert_one(cv_info_extracted)
+        created_candidate = await collection.find_one({"_id": new_candidate.inserted_id})
+    except Exception as e:
+        logger.error(f"Failed to save candidate: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={
+                "status": 500,
+                "success": False,
+                "message": "Failed to save candidate"
+            }
+        )
     
     # Trả về kết quả thành công
     return JSONResponse(
@@ -86,7 +103,7 @@ async def postExtractCVInfo(request: Request, file: UploadFile = File(...)):
             "status": 200,
             "success": True,
             "message": "CV information extracted successfully",
-            "data": cv_info_extracted
+            "data": created_candidate
         }
     )
 
