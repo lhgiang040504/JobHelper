@@ -5,6 +5,7 @@ from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
 from source.models.candidate import Candidate
 from source.models.job import JobDescription
+from source.models.job_resume_matching import JobResumeMatching
 
 dotenv.load_dotenv()
 
@@ -68,3 +69,35 @@ def get_Jobs_parser():
      partial_variables={"format_instructions": job_parser.get_format_instructions()},
     )
     return llm, job_parser, job_prompt
+
+
+def matching_CVs_JDs():
+    llm = ChatGroq(
+        temperature=0,
+        groq_api_key = LLAMA_3_API_KEY,
+        model_name = "llama-3.1-70b-versatile"
+    )
+
+    parser = JsonOutputParser(pydantic_object=JobResumeMatching)
+
+    # Set up a parser + inject instructions into the prompt template.
+    prompt = PromptTemplate(
+        template="""        
+        #Intruduction#
+        You are a good CV-JD matcher. You are provided with a CV text and a JD text: \n
+        {data}
+        #Context#
+        Currently, I am working on a project that requires matching CVs with JDs. I need to extract the following structured information from the provided CVs and JDs text.
+        #Task#
+        Match the following structured information from the provided CVs and JDs text.
+        #Requirment# 
+        1. If information is missing, leave it blank.
+        2. Convernt the extracted information into English. 
+        #Format Instructions#\n
+        {format_instructions}
+         """,
+     input_variables=["data"],
+     partial_variables={"format_instructions": parser.get_format_instructions()},
+    )
+    return llm, parser, prompt
+    

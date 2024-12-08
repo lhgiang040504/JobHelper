@@ -44,7 +44,7 @@ class Candidate(BaseModel):
                          "num_experience": 3.5
                 },
                     "language": ["English", "Vietnamese"],
-                    "skills": ["Python", "Java", "C++"],
+                    "skills": ["Python", "Java", "C++", "Good English Communication", "Toeic"], 
                     "major": ["Computer Science"],
                     "degree": "Bachelor"
 

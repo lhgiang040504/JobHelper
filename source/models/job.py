@@ -17,7 +17,7 @@ class JobDescription(BaseModel):
                      "role": "Software Engineer",
                      "experience": 3.5,
                      "acceptable_majors": ["Computer Science"],
-                     "skills": ["Python", "Java", "C++"],
-                     "degree": "Bachelor"
+                     "skills": ["Python", "Java", "C++", "Toeic"],
+                     "degree": ["Bachelor"]
                }
             }
