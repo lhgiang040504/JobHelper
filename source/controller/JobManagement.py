@@ -61,6 +61,23 @@ async def postExtractJobInfo(request: Request, input: InputJD = Body(...)):
                 "message": "Failed to extract Job information"
             }
         )
+    # Lưu thông tin Job vào database
+    try:
+        database = request.app.mongodb.get_database()
+        jobs_collection = database["jobs"]
+
+        new_job = await jobs_collection.insert_one(job_info_extracted)
+        created_job = await jobs_collection.find_one({"_id": new_job.inserted_id})
+    except Exception as e:
+        logger.error(f"Failed to save job information: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={
+                "status": 500,
+                "success": False,
+                "message": "Failed to save job information"
+            }
+        )
 
     # Trả về kết quả thành công
     return JSONResponse(
@@ -69,7 +86,7 @@ async def postExtractJobInfo(request: Request, input: InputJD = Body(...)):
             "status": 200,
             "success": True,
             "message": "Job information extracted successfully",
-            "data": job_info_extracted
+            "data": created_job
         }
     )
 

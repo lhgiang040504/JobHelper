@@ -30,7 +30,8 @@ def get_CVs_parser():
             #Task#
             Extract the following structured information from the provided CV text. If information is missing, leave it blank. 
             #Requirment# 
-            1. If information is missing, leave it blank. 
+            1. If information is missing, leave it blank.
+            2. Convernt the extracted information into English. 
             #Format_instructions# : {format_instructions}
         """,
         input_variables=["data"],
@@ -58,7 +59,8 @@ def get_Jobs_parser():
         #Task#
         Extract the following structured information from the provided CV text.
         #Requirment# 
-        1. If information is missing, leave it blank. 
+        1. If information is missing, leave it blank.
+        2. Convernt the extracted information into English. 
         #Format Instructions#\n
         {format_instructions}
          """,
