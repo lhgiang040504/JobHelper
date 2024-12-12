@@ -10,6 +10,8 @@ class JobResumeMatching(BaseModel):
      matching_skill_score: Optional[float] = Field(description="len(list_matching_skills) / len(job.skills)")
      matching_degree_score: Optional[float] = Field(description="1 if the degree of the resume is acceptable for the job, else 0")
      matching_major_score: Optional[float] = Field(description="1 if the major of the resume is acceptable for the job, else 0 and 0.5 if the major of the resume related to the major of the job")
+     total_score: Optional[float] = Field(description="matching_skill_score + matching_degree_score + matching_major_score")
+                                          
 
      class Config:
            populate_by_name = True
@@ -20,7 +22,8 @@ class JobResumeMatching(BaseModel):
                      "matching_skill_score": 0.8,
                      "matching_degree_score": 1,
                      "matching_major_score": 0.5,
-                     "list_matching_skills": ["Python", "Java", "C++"]
+                     "list_matching_skills": ["Python", "Java", "C++"],
+                     "total_score": 2.3
                 }
            }
 

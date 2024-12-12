@@ -1,9 +1,9 @@
 from fastapi import UploadFile, File, Request, Body
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from utils.preprocessed_text import read_pdf
+from source.utils.preprocessed_text import read_pdf
 from source.services.Resume_Infor_Extraction import CVsInfoExtraction
-from utils.llama3_model import get_CVs_parser
+from source.utils.llama3_model import get_CVs_parser
 from source.models.candidate import Candidate
 import os
 import logging

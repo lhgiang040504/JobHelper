@@ -1,7 +1,7 @@
 from source.models.job import JobDescription
 from source.models.candidate import Candidate
 from sklearn.metrics.pairwise import cosine_similarity
-from utils.llama3_model import matching_CVs_JDs
+from source.utils.llama3_model import matching_CVs_JDs
 from dotenv import dotenv_values
 import numpy as np
 import requests

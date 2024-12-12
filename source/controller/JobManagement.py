@@ -3,7 +3,7 @@ from fastapi import Request, Body
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from source.services.Job_Info_Extraction import JobInfoExtraction
-from utils.llama3_model import get_Jobs_parser
+from source.utils.llama3_model import get_Jobs_parser
 from source.models.job import JobDescription
 import logging
 
