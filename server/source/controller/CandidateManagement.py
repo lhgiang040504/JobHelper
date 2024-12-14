@@ -12,24 +12,22 @@ import logging
 logger = logging.getLogger(__name__)
 
 async def postExtractCVInfo(request: Request, file: UploadFile = File(...)):
-    # Kiểm tra loại file
     if not file.filename:
         return JSONResponse(
             status_code=400,
-            content={
-                "status": 400,
-                "success": False,
-                "message": "No file uploaded"
-            }
+            content={"status": 400, "success": False, "message": "No file uploaded"}
         )
     if file.content_type != "application/pdf":
         return JSONResponse(
             status_code=400,
-            content={
-                "status": 400,
-                "success": False,
-                "message": "Invalid file type"
-            }
+            content={"status": 400, "success": False, "message": "Invalid file type"}
+        )
+
+    # Check file size before saving
+    if file.size > 2 * 1024 * 1024:  # 2 MB limit
+        return JSONResponse(
+            status_code=400,
+            content={"status": 400, "success": False, "message": "File size exceeds limit"}
         )
 
     # Lưu file (xử lý tên file an toàn)
@@ -60,6 +58,16 @@ async def postExtractCVInfo(request: Request, file: UploadFile = File(...)):
                 "status": 500,
                 "success": False,
                 "message": "Failed to read PDF"
+            }
+        )
+    # Xử lý limit file size
+    if len(CVs_content.split()) > 15000:
+        return JSONResponse(
+            status_code=400,
+            content={
+                "status": 400,
+                "success": False,
+                "message": "File size exceeds limit"
             }
         )
 
@@ -170,6 +178,44 @@ async def getAllCandidates(request: Request):
             }
         )
     
+async def getCandidateById(request: Request, candidate_id: str):
+    try:
+        # Truy cập cơ sở dữ liệu và collection
+        database = request.app.mongodb.get_database()
+        candidates_collection = database["candidates"]
+
+        # Lấy thông tin ứng viên
+        candidate = await candidates_collection.find_one({"_id": candidate_id})
+        if not candidate:
+            return JSONResponse(
+                status_code=404,
+                content={
+                    "status": 404,
+                    "success": False,
+                    "message": "Candidate not found"
+                }
+            )
+
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": 200,
+                "success": True,
+                "message": "Candidate retrieved successfully",
+                "data": candidate
+            }
+        )
+    except Exception as e:
+        logger.error(f"Failed to retrieve candidate: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={
+                "status": 500,
+                "success": False,
+                "message": "Failed to retrieve candidate"
+            }
+        )
+
 async def deleteCandate(request: Request, candidate_id: str):
     try:
         # Truy cập cơ sở dữ liệu

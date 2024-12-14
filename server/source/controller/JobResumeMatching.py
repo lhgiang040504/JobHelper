@@ -16,7 +16,6 @@ async def createJobResumeMatching(request: Request, candidate: Candidate = Body(
      try:
           rule = Rule(job, candidate)
           result = rule.get_match()
-          print(result)
           
           database = request.app.mongodb.get_database()
           job_resume_matching = database["job_resume_matching"]

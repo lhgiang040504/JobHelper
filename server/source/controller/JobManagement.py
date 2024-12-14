@@ -40,6 +40,16 @@ async def postExtractJobInfo(request: Request, input: InputJD = Body(...)):
                 "message": "Invalid request body"
             }
         )
+    #Xử lý limit text
+    if len(Jobs_content) > 20000:
+        return JSONResponse(
+            status_code=400,
+            content={
+                "status": 400,
+                "success": False,
+                "message": "Text is too long"
+            }
+        )
 
     # Trích xuất thông tin Job
     try:

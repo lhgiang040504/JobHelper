@@ -29,10 +29,7 @@ def get_CVs_parser():
             #Context#
             Currently, I am working on a project that requires extracting structured information from CVs. I need to extract the following structured information from the provided CV text. If information is missing, leave it blank.
             #Task#
-            Extract the following structured information from the provided CV text. If information is missing, leave it blank. 
-            #Requirment# 
-            1. If information is missing, leave it blank.
-            2. Convernt the extracted information into English. 
+            Extract the following structured information from the provided CV text. If information is missing, leave it blank. Convernt the extracted information into English
             #Format_instructions# : {format_instructions}
         """,
         input_variables=["data"],
@@ -58,10 +55,7 @@ def get_Jobs_parser():
         #Context#
         Currently, I am working on a project that requires extracting structured information from JDs. I need to extract the following structured information from the provided JDs text. If information is missing, leave it blank.
         #Task#
-        Extract the following structured information from the provided CV text.
-        #Requirment# 
-        1. If information is missing, leave it blank.
-        2. Convernt the extracted information into English. 
+        Extract the following structured information from the provided CV text. If information is missing, leave it blank. Convernt the extracted information into English
         #Format Instructions#\n
         {format_instructions}
          """,
