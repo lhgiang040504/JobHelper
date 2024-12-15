@@ -23,6 +23,7 @@ async def createJobResumeMatching(request: Request, candidate: Candidate = Body(
           new_job_resume_matching = JobResumeMatching(**result)
           new_job_resume_matching = jsonable_encoder(new_job_resume_matching)
           new_job_resume_matching['matching_skill_score'] = len(new_job_resume_matching['list_matching_skills']) / len(job.skills)
+          new_job_resume_matching['total_score'] = new_job_resume_matching['matching_skill_score'] + new_job_resume_matching['matching_degree_score'] + new_job_resume_matching['matching_major_score']
           new_job_resume_matching = await job_resume_matching.insert_one(new_job_resume_matching)
           created_job_resume_matching = await job_resume_matching.find_one({"_id": new_job_resume_matching.inserted_id})
      except Exception as e:

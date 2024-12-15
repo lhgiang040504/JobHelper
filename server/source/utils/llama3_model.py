@@ -15,7 +15,7 @@ def get_CVs_parser():
     llm = ChatGroq(
         temperature=0,
         groq_api_key = LLAMA_3_API_KEY,
-        model_name = "llama-3.1-70b-versatile"
+        model_name = "llama-3.3-70b-versatile"
     )
 
     # Set up a parser + inject instructions into the prompt template.
@@ -69,7 +69,7 @@ def matching_CVs_JDs():
     llm = ChatGroq(
         temperature=0,
         groq_api_key = LLAMA_3_API_KEY,
-        model_name = "llama-3.1-70b-versatile"
+        model_name = "llama-3.3-70b-versatile"
     )
 
     parser = JsonOutputParser(pydantic_object=JobResumeMatching)

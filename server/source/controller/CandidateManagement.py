@@ -76,6 +76,7 @@ async def postExtractCVInfo(request: Request, file: UploadFile = File(...)):
         llm, cv_parser, cv_prompt = get_CVs_parser()
         cv_parser = CVsInfoExtraction(llm, cv_prompt, cv_parser)
         cv_info_extracted = cv_parser.extract_info(CVs_content)
+        cv_info_extracted['file_name'] = file.filename
     except Exception as e:
         logger.error(f"Failed to extract CV information: {e}")
         return JSONResponse(
