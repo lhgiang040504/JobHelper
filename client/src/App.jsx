@@ -1,7 +1,8 @@
 import { AppBar, Toolbar, Typography, Box, Grid, Paper } from "@mui/material";
 import CandidateManagement from "./pages/CandidateManagement";
+import JobManagement from "./pages/JobManagement";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <Box sx={{ flexGrow: 1, height: "100vh" }}>
@@ -24,7 +25,9 @@ function App() {
                 overflowY: "auto",
               }}
             >
-              <Box></Box>
+              <Box>
+                <JobManagement />
+              </Box>
             </Paper>
           </Grid>
 
@@ -43,18 +46,17 @@ function App() {
         </Grid>
       </Box>
       <ToastContainer
-          position="top-right"
-          autoClose={1000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
     </Box>
-    
   );
 }
 

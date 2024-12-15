@@ -11,14 +11,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 class InputJD(BaseModel):
-    text: str
+    description: str
 
 async def postExtractJobInfo(request: Request, input: InputJD = Body(...)):
     # Lấy nội dung text từ request
     try:
         input = jsonable_encoder(input)
-        Jobs_content = input.get("text", "").strip()
-
+        Jobs_content = input["description"].strip()
+        
         # Kiểm tra nếu không có text
         if not Jobs_content:
             return JSONResponse(

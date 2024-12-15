@@ -6,7 +6,7 @@ from pydantic import BaseModel
 router = APIRouter()
 
 class InputJD(BaseModel):
-    text: str
+    description: str
 
 
 @router.post("/extract_job_info")

@@ -98,11 +98,13 @@ function CandidateManagement() {
       </AppBar>
 
       {/* Hiển thị danh sách candidates dưới dạng các card */}
-      <CandidateList
-        candidates={candidates}
-        onViewDetails={handleGetCandidateDetails}
-        onDelete={handleDeleteCandidate}
-      />
+      <Box mt={2}>
+        <CandidateList
+          candidates={candidates}
+          onViewDetails={handleGetCandidateDetails}
+          onDelete={handleDeleteCandidate}
+        />
+      </Box>
 
       {/* Popup Dialog hiển thị chi tiết ứng viên */}
       {candidateDetails ? (<DetailDialog
@@ -123,12 +125,12 @@ function CandidateManagement() {
         <DialogContent>
           <UploadCV onUpload={setPdfFile} />
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{display: 'flex', justifyContent: 'space-between'}}>
           <Button onClick={handleCloseUploadDialog} color="primary">
             Cancel
           </Button>
           <Button onClick={handleAddCandidate} color="primary" variant="contained">
-            Add Candidate
+            Add 
           </Button>
         </DialogActions>
       </Dialog>
