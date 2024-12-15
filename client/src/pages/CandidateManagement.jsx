@@ -23,11 +23,15 @@ function CandidateManagement() {
 
     try {
       const formData = new FormData();
-      formData.append('file', pdfFile);
+      formData.append('file', pdfFile)
+
       const response = await ApiCandidateManagement.postExtractCVInfor(formData); // Thêm ứng viên mới
       if (!response.success) {
         toast.error(response.message); // Hiển thị thông báo lỗi
         return;
+      }
+      else{
+        toast.success(response.message); // Hiển thị thông báo thành công
       }
       setPdfFile(null); // Reset file sau khi thêm
       setCandidates([...candidates, response.data]); // Cập nhật danh sách ứng viên

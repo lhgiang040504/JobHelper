@@ -4,6 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from source.utils.llama3_model import matching_CVs_JDs
 from dotenv import dotenv_values
 import numpy as np
+import uuid
 import requests
 
 config = dotenv_values(".env")
@@ -18,4 +19,5 @@ class Rule:
           llm, parser, prompt = matching_CVs_JDs()
           chain = prompt | llm | parser
           result = chain.invoke(input={"data": data})
+          result["_id"] = str(uuid.uuid4())
           return result

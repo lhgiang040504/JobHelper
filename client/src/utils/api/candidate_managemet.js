@@ -3,7 +3,7 @@ import axios from "../axios";
 class CandidateManagement {
   postExtractCVInfor = async (options = {}) => {
     try {
-      const response = await axios.post("candidates/extract_cv_info", options);
+      const response = await axios.post("/candidates/extract_cv_info", options);
       return response;
     } catch (error) {
       console.error("Error in postExtractCVInfor:", error);
@@ -13,7 +13,7 @@ class CandidateManagement {
 
   postCreateCandidate = async (options = {}) => {
     try {
-      const response = await axios.post("candidates/create_candidate", options);
+      const response = await axios.post("/candidates/create_candidate", options);
       return response;
     } catch (error) {
       console.error("Error in postCreateCandidate:", error);
@@ -23,7 +23,7 @@ class CandidateManagement {
 
   getAllCandidates = async () => {
     try {
-      const response = await axios.get("candidates/get_all_candidates");
+      const response = await axios.get("/candidates/get_all_candidates");
       return response;
     } catch (error) {
       console.error("Error in getAllCandidates:", error);
@@ -33,7 +33,7 @@ class CandidateManagement {
 
   getCandidateById = async (id) => {
     try {
-      const response = await axios.get(`candidates/get_candidate/${id}`);
+      const response = await axios.get(`/candidates/get_candidate/${id}`);
       return response;
     } catch (error) {
       console.error(`Error in getCandidateById for ${id}:`, error);
@@ -43,7 +43,7 @@ class CandidateManagement {
 
   deleteCandidate = async (id) => {
     try {
-      const response = await axios.delete(`candidates/delete/${id}`);
+      const response = await axios.delete(`/candidates/delete/${id}`);
       return response;
     } catch (error) {
       console.error(`Error in deleteCandidate for ${id}:`, error);

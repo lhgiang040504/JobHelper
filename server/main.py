@@ -12,16 +12,15 @@ app = FastAPI()
 
 # Thêm CORS middleware
 origins = [
-    "http://localhost:5173",  # Thêm địa chỉ của frontend của bạn
-    "http://127.0.0.1:5173",  # Nếu bạn muốn thêm nhiều địa chỉ khác
+    "http://localhost:3000",  # Thêm địa chỉ của frontend của bạn
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Chỉ cho phép các origin này
-    allow_credentials=True,
-    allow_methods=["*"],  # Cho phép tất cả các phương thức HTTP (GET, POST, PUT, DELETE, v.v.)
-    allow_headers=["*"],  # Cho phép tất cả các header
+    allow_origins=origins,         # Cho phép nguồn gốc
+    allow_credentials=True,        # Cho phép gửi cookie hoặc token
+    allow_methods=["*"],           # Cho phép tất cả các phương thức HTTP
+    allow_headers=["*"],           # Cho phép tất cả các header
 )
 
 

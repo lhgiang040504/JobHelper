@@ -1,49 +1,49 @@
 import axios from "axios";
 
 const instance = axios.create({
-  // baseURL: "https://quanlithuvien.onrender.com/api/",
   baseURL: "http://127.0.0.1:8000/",
-  withCredentials: true
+  withCredentials: true,
+  headers: {
+    Accept: "application/json",
+  },
 });
 
-// Thêm một bộ đón chặn request
+// Thêm bộ chặn request
 instance.interceptors.request.use(
-  function (config) {
-    // Làm gì đó trước khi request được gửi đi
-    let localStorageData = window.localStorage.getItem(
-      "persist:qltv/user"
-    );
-    if (localStorageData && typeof localStorageData === "string") {
+  (config) => {
+    const localStorageData = window.localStorage.getItem("persist:qltv/user");
 
-      localStorageData = JSON.parse(localStorageData);
-      const accessToken = JSON.parse(localStorageData?.token);
-      config.headers = {
-        Authorization: `Bearer ${accessToken}`,
-      };
-      return config;
-    } else return config;
+    if (localStorageData) {
+      try {
+        const parsedData = JSON.parse(localStorageData);
+        const accessToken = JSON.parse(parsedData?.token);
+
+        if (accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+      } catch (error) {
+        console.error("Error parsing token:", error);
+      }
+    }
+    return config;
   },
-  function (error) {
-    // Làm gì đó khi lỗi
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Thêm một bộ đón chặn response
+// Thêm bộ chặn response
 instance.interceptors.response.use(
-  function (response) {
-    // Bất kì mã trạng thái nào nằm trong tầm 2xx đều khiến hàm này được trigger
-    // Làm gì đó với dữ liệu response
-    return response.data;
-  },
-  function (error) {
+  (response) => response.data,
+  (error) => {
     if (error.response) {
       if (error.response.status === 401) {
         window.localStorage.removeItem("persist:qltv/user");
         window.location.reload();
+      } else {
+        console.error("API Error:", error.response.data);
       }
-      return error.response.data;
+      return Promise.reject(error.response.data);
     }
+    return Promise.reject(error);
   }
 );
 

@@ -10,6 +10,6 @@ router = APIRouter()
 async def create_job_resume_matching(request: Request, Candidate: Candidate = Body(...), JobDescription: JobDescription = Body(...)):
      return await createJobResumeMatching(request, Candidate, JobDescription)
 
-@router.get("/getTopKJobResumeMatching/{k}")
-async def get_top_k_job_resume_matching(request: Request, k: int):
-     return await getTopKJobResumeMatching(request, k)
+@router.get("/getTopKJobResumeMatching/{job_id}")
+async def get_top_k_job_resume_matching(request: Request, job_id: str):
+     return await getTopKJobResumeMatching(request, job_id)

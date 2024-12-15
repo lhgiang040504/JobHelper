@@ -1,62 +1,46 @@
-import { AppBar, Toolbar, Typography, Box, Grid, Paper } from "@mui/material";
-import CandidateManagement from "./pages/CandidateManagement";
-import JobManagement from "./pages/JobManagement";
+import { AppBar, Toolbar, Typography, Box, Button } from "@mui/material";
+import { BrowserRouter as Router, Link } from "react-router-dom";
+import AppRouter from "./routes/routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
-    <Box sx={{ flexGrow: 1, height: "100vh" }}>
-      {/* Header */}
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            My Application
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    <Router>
+      <Box sx={{ flexGrow: 1, height: "100vh" }}>
+        {/* Header */}
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              My Application
+            </Typography>
+            <Button color="inherit" component={Link} to="/job-management">
+              Job Management
+            </Button>
+            <Button color="inherit" component={Link} to="/candidate-management">
+              Candidate Management
+            </Button>
+          </Toolbar>
+        </AppBar>
 
-      {/* Content */}
-      <Box sx={{ padding: 2, height: "calc(100vh - 64px)" }}>
-        <Grid container spacing={2} sx={{ height: "100%" }}>
-          <Grid item xs={6}>
-            <Paper
-              sx={{
-                height: "100%",
-                overflowY: "auto",
-              }}
-            >
-              <Box>
-                <JobManagement />
-              </Box>
-            </Paper>
-          </Grid>
+        {/* Content */}
+        <Box sx={{ padding: 2, height: "calc(100vh - 64px)" }}>
+          <AppRouter />
+        </Box>
 
-          <Grid item xs={6}>
-            <Paper
-              sx={{
-                height: "100%",
-                overflowY: "auto",
-              }}
-            >
-              <Box>
-                <CandidateManagement />
-              </Box>
-            </Paper>
-          </Grid>
-        </Grid>
+        <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Box>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    </Box>
+    </Router>
   );
 }
 

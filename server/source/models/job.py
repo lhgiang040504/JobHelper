@@ -3,12 +3,12 @@ from typing import List
 import uuid
 
 class JobDescription(BaseModel):
-    id : str = Field(..., default_factory=uuid.uuid4, alias="_id")
-    role: str = Field(..., description="Job title")
-    experience: float = Field(..., description="Experience level required for the job")
-    acceptable_majors: List[str] = Field(..., description="Acceptable majors for the job")
-    skills: List[str] = Field(..., description="Skills required for the job")
-    degree: List[str] = Field(..., description="Degree required for the job")
+    id : str = Field(default_factory=uuid.uuid4, alias="_id")
+    role: str = Field(description="Job title")
+    experience: float = Field(description="Experience level required for the job")
+    acceptable_majors: List[str] = Field(description="Acceptable majors for the job")
+    skills: List[str] = Field(description="Skills required for the job")
+    degree: List[str] = Field(description="Degree required for the job")
     class Config:
             populate_by_name = True
             json_schema_extra = {

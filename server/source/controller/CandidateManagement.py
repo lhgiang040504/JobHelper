@@ -158,6 +158,17 @@ async def getAllCandidates(request: Request):
         candidates_cursor = candidates_collection.find()
         candidates = await candidates_cursor.to_list(length=100)  # Giới hạn số lượng kết quả trả về
 
+        # Kiểm tra nếu danh sách ứng viên trống
+        if len(candidates) <= 0:
+            return JSONResponse(
+                status_code=404,
+                content={
+                    "status": 404,
+                    "success": False,
+                    "message": "No candidates found"
+                }
+            )
+
         return JSONResponse(
             status_code=200,
             content={

@@ -10,7 +10,7 @@ class InputJD(BaseModel):
 
 
 @router.post("/extract_job_info")
-async def extract_job_info(request: Request, input: dict = Body(...)):
+async def extract_job_info(request: Request, input: InputJD = Body(...)):
     return await postExtractJobInfo(request, input)
 
 @router.post("/create_job")
