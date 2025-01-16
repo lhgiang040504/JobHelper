@@ -1,0 +1,45 @@
+FUNCTION calculate_match(job_skills, candidate_skills):
+    matched_skills = EMPTY_LIST
+    unmatched_skills = EMPTY_LIST
+
+    FOR skill IN candidate_skills:
+        IF skill IS IN job_skills:
+            ADD skill TO matched_skills
+        ELSE:
+            ADD skill TO unmatched_skills
+
+    INITIALIZE tfidf_vectorizer FOR job_skills + unmatched_skills
+    job_vectors = TRANSFORM job_skills USING tfidf_vectorizer
+    candidate_vectors = TRANSFORM unmatched_skills USING tfidf_vectorizer
+
+    similar_skills = EMPTY_LIST
+    FOR EACH candidate_vector IN candidate_vectors:
+        similarities = CALCULATE cosine_similarity(candidate_vector, job_vectors)
+        max_similarity = MAX(similarities) IF similarities IS NOT EMPTY ELSE 0
+        IF max_similarity > 0.7:
+            ADD corresponding unmatched_skill TO similar_skills
+
+    ADD similar_skills TO matched_skills
+    RETURN matched_skills
+
+FUNCTION calculate_degree_match(job_degree, candidate_degree):
+    IF job_degree IS A LIST:
+        RETURN 1.0 IF candidate_degree IS IN job_degree ELSE 0.0
+    ELSE:
+        RETURN 1.0 IF candidate_degree EQUALS job_degree ELSE 0.0
+
+FUNCTION calculate_major_match(job_major, candidate_major):
+    candidate_major_lower = CONVERT candidate_major TO LOWERCASE
+
+    IF job_major IS A LIST:
+        IF candidate_major_lower IS IN job_major:
+            RETURN 1.0
+
+        FOR major IN job_major:
+            related_majors = LOOKUP major IN MAJOR_DICT
+            IF candidate_major_lower IS IN related_majors:
+                RETURN 0.5
+
+        RETURN 0.0
+    ELSE:
+        RETURN 1.0 IF candidate_major_lower EQUALS job_major ELSE 0.0
